@@ -24,5 +24,3 @@ jobs:
           # Critical: specify your template repository address
           source_repo_path: NeverMorewd/DotNetPerformanceDashboard
           upstream_branch: main # The template's main branch is 'main'
-          # Add a label to the automatically created PR for easy identification and management
-          pr_labels: "template-update"
