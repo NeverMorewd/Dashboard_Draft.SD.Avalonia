@@ -1,26 +1,36 @@
-name: Sync upstream template repository changes
+name: Sync upstream template
 
 on:
-  # Scheduled trigger: run every Tuesday at 3:00 AM UTC. Adjust as needed.
   schedule:
     - cron: "0 3 * * 2"
-  # Allow manual trigger from the GitHub Actions page
   workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: template-sync
+  cancel-in-progress: false
 
 jobs:
   template-sync:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout your repository
-        uses: actions/checkout@v3
-        with:
-          # Use the automatically generated GITHUB_TOKEN for subsequent operations
-          token: ${{ secrets.GITHUB_TOKEN }}
+    timeout-minutes: 10
 
-      - name: Sync template repository
-        uses: AndreasAugustin/actions-template-sync@v0.7.2-draft
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Critical: specify your template repository address
+          persist-credentials: false
+
+      - name: Sync upstream template
+        uses: AndreasAugustin/actions-template-sync@8a0f668b83c32a0f673353086d74f12b8853d4f5 # v2
+        with:
+          source_gh_token: ${{ github.token }}
+          target_gh_token: ${{ github.token }}
           source_repo_path: NeverMorewd/DotNetPerformanceDashboard
-          upstream_branch: main # The template's main branch is 'main'
+          upstream_branch: main
+          pr_branch_name_prefix: chore/template-sync
+          pr_title: "Sync changes from dashboard template"
+          pr_commit_msg: "chore: sync dashboard template"
