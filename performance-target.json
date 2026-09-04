@@ -8,19 +8,23 @@
   },
   "platforms": {
     "Windows": {
+      "buildRunner": "windows-latest",
       "runtimeIdentifier": "win-x64",
       "executablePath": "SidebarDiagnostics.App.exe"
     },
     "Linux": {
+      "buildRunner": "ubuntu-latest",
       "runtimeIdentifier": "linux-x64",
       "executablePath": "SidebarDiagnostics.App"
     },
     "macOS": {
+      "buildRunner": "macos-latest",
       "runtimeIdentifier": "osx-x64",
       "executablePath": "SidebarDiagnostics.App"
     }
   },
   "publish": {
+    "dotnetVersion": "10.0.302",
     "configuration": "Release",
     "selfContained": true,
     "nativeAot": true,
