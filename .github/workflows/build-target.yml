@@ -64,7 +64,7 @@ jobs:
           }
 
       - name: Checkout target repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           repository: ${{ inputs.target-repository }}
           ref: ${{ inputs.target-ref }}
